@@ -1,0 +1,662 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COURT — Basketball Archive</title>
+
+<style>
+:root {
+  --black: #171717;
+  --gray: #777;
+  --light: #f5f4f0;
+  --orange: #ed5a24;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--black);
+  background: #fff;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 7%;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255,255,255,.96);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+nav .links {
+  display: flex;
+  gap: 25px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+nav a:hover {
+  color: var(--orange);
+}
+
+.hero {
+  min-height: 570px;
+  padding: 90px 7%;
+  background: var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  overflow: hidden;
+}
+
+.hero-text {
+  max-width: 570px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--orange);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(55px, 9vw, 110px);
+  line-height: .92;
+  letter-spacing: -7px;
+  margin: 25px 0;
+}
+
+.hero p {
+  color: var(--gray);
+  max-width: 410px;
+  margin-bottom: 28px;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--black);
+  color: white;
+  padding: 13px 23px;
+  font-size: 12px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.btn:hover {
+  background: var(--orange);
+  transform: translateY(-2px);
+}
+
+.hero img {
+  width: min(43%, 480px);
+  mix-blend-mode: multiply;
+  object-fit: contain;
+}
+
+section {
+  padding: 90px 7%;
+}
+
+.section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 38px;
+}
+
+h2 {
+  font-size: clamp(32px, 5vw, 55px);
+  letter-spacing: -2px;
+  line-height: 1.1;
+}
+
+.section-head p {
+  max-width: 330px;
+  color: var(--gray);
+  font-size: 13px;
+}
+
+.history {
+  background: white;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid #ddd;
+  margin-top: 50px;
+}
+
+.event {
+  padding: 25px 20px 15px 0;
+  border-right: 1px solid #eee;
+}
+
+.event:not(:first-child) {
+  padding-left: 20px;
+}
+
+.year {
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  color: var(--orange);
+  margin-bottom: 12px;
+}
+
+.event h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.event p {
+  font-size: 13px;
+  color: var(--gray);
+}
+
+.collection {
+  background: var(--light);
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.product {
+  background: white;
+  overflow: hidden;
+}
+
+.product-image {
+  height: 270px;
+  background: #f0efeb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 12px;
+  mix-blend-mode: multiply;
+  transition: transform .4s;
+}
+
+.product:hover .product-image img {
+  transform: scale(1.06);
+}
+
+.product-info {
+  padding: 22px;
+}
+
+.tag {
+  font-size: 10px;
+  color: var(--orange);
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.product h3 {
+  font-size: 19px;
+  margin: 7px 0;
+}
+
+.description {
+  color: var(--gray);
+  font-size: 12px;
+  min-height: 40px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 15px 0;
+}
+
+.size-title {
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.size {
+  padding: 7px 10px;
+  background: white;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.size:hover,
+.size.selected {
+  background: var(--black);
+  color: white;
+  border-color: var(--black);
+}
+
+.product .btn {
+  width: 100%;
+  text-align: center;
+}
+
+.notice {
+  font-size: 11px;
+  color: var(--gray);
+  margin-top: 24px;
+}
+
+.manifesto {
+  background: var(--black);
+  color: white;
+  text-align: center;
+  padding: 100px 7%;
+}
+
+.manifesto h2 {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.manifesto p {
+  color: #aaa;
+  max-width: 550px;
+  margin: 0 auto;
+  font-size: 14px;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 28px 7%;
+  font-size: 11px;
+  color: var(--gray);
+}
+
+@media(max-width: 800px) {
+  nav {
+    padding: 18px 5%;
+  }
+
+  nav .links {
+    gap: 12px;
+    font-size: 10px;
+  }
+
+  .hero {
+    padding: 65px 6%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero img {
+    width: 100%;
+    max-height: 260px;
+  }
+
+  h1 {
+    letter-spacing: -4px;
+  }
+
+  section {
+    padding: 65px 6%;
+  }
+
+  .timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .event:nth-child(3) {
+    padding-left: 0;
+  }
+
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media(max-width: 520px) {
+  nav .links {
+    gap: 9px;
+    font-size: 9px;
+  }
+
+  .logo {
+    font-size: 21px;
+  }
+
+  .products {
+    grid-template-columns: 1fr;
+  }
+
+  .product-image {
+    height: 280px;
+  }
+
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .event,
+  .event:not(:first-child) {
+    padding: 20px 0;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a class="logo" href="#">COURT<span style="color:#ed5a24">.</span></a>
+  <div class="links">
+    <a href="#history">History</a>
+    <a href="#collection">Collection</a>
+    <a href="#about">About</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-text">
+    <div class="eyebrow">The culture of basketball</div>
+    <h1>MORE<br>THAN<br>A GAME.</h1>
+    <p>
+      Từ một trò chơi trong nhà năm 1891 đến văn hóa thể thao
+      toàn cầu. Khám phá lịch sử bóng rổ và những đôi giày
+      tạo nên phong cách trên sân.
+    </p>
+    <a class="btn" href="#history">KHÁM PHÁ LỊCH SỬ ↘</a>
+  </div>
+
+  <img
+    src="https://www.nike.com.kw/dw/image/v2/BDVB_PRD/on/demandware.static/-/Sites-akeneo-master-catalog/default/dw4f4d09c9/nk/16a/c/e/e/2/d/16acee2d_689d_4f66_bdb3_fa8d7f755c00.png"
+    alt="Giày bóng rổ Nike G.T. Cut Academy 2"
+  >
+</header>
+
+<section class="history" id="history">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">01 / The beginning</div>
+      <h2>Lịch sử bóng rổ.</h2>
+    </div>
+    <p>
+      Hơn một thế kỷ phát triển — từ hai chiếc giỏ đào
+      đến những sân đấu nổi tiếng khắp thế giới.
+    </p>
+  </div>
+
+  <div class="timeline">
+    <article class="event">
+      <div class="year">1891</div>
+      <h3>Sự ra đời</h3>
+      <p>
+        James Naismith sáng tạo bóng rổ tại Springfield,
+        Massachusetts, Mỹ. Trò chơi ban đầu sử dụng bóng
+        đá và hai chiếc giỏ đào làm rổ.
+      </p>
+    </article>
+
+    <article class="event">
+      <div class="year">1936</div>
+      <h3>Đấu trường Olympic</h3>
+      <p>
+        Bóng rổ nam trở thành môn thi đấu chính thức
+        tại Thế vận hội Berlin, đánh dấu bước tiến lớn
+        trên con đường quốc tế hóa.
+      </p>
+    </article>
+
+    <article class="event">
+      <div class="year">1946</div>
+      <h3>Kỷ nguyên chuyên nghiệp</h3>
+      <p>
+        Hiệp hội Bóng rổ Mỹ (BAA) được thành lập.
+        BAA sau đó hợp nhất với NBL để hình thành NBA
+        vào năm 1949.
+      </p>
+    </article>
+
+    <article class="event">
+      <div class="year">TODAY</div>
+      <h3>Văn hóa toàn cầu</h3>
+      <p>
+        Bóng rổ vượt khỏi khuôn khổ thi đấu, ảnh hưởng
+        đến thời trang đường phố, âm nhạc, giày thể thao
+        và phong cách sống.
+      </p>
+    </article>
+  </div>
+</section>
+
+<section class="collection" id="collection">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">02 / The footwear</div>
+      <h2>Nike basketball.</h2>
+    </div>
+    <p>
+      Hiệu năng trên sân. Tinh giản trong thiết kế.
+      Chọn size để xem lựa chọn của mày.
+    </p>
+  </div>
+
+  <div class="products">
+
+    <article class="product">
+      <div class="product-image">
+        <img
+          src="https://www.nike.com.kw/dw/image/v2/BDVB_PRD/on/demandware.static/-/Sites-akeneo-master-catalog/default/dw4f4d09c9/nk/16a/c/e/e/2/d/16acee2d_689d_4f66_bdb3_fa8d7f755c00.png"
+          alt="Nike G.T. Cut Academy 2 trắng tím"
+          loading="lazy"
+        >
+      </div>
+      <div class="product-info">
+        <div class="tag">01 / Court performance</div>
+        <h3>Nike G.T. Cut Academy 2 EP</h3>
+        <p class="description">
+          Đệm Air Zoom ở bàn chân trước, hỗ trợ
+          chuyển hướng và bám sân.
+        </p>
+        <div class="price">2.649.000₫</div>
+        <div class="size-title">CHỌN SIZE EU</div>
+        <div class="sizes">
+          <button class="size" onclick="pickSize(this)">39</button>
+          <button class="size" onclick="pickSize(this)">40</button>
+          <button class="size" onclick="pickSize(this)">40.5</button>
+          <button class="size" onclick="pickSize(this)">41</button>
+          <button class="size" onclick="pickSize(this)">42</button>
+          <button class="size" onclick="pickSize(this)">42.5</button>
+          <button class="size" onclick="pickSize(this)">43</button>
+          <button class="size" onclick="pickSize(this)">44</button>
+          <button class="size" onclick="pickSize(this)">45</button>
+        </div>
+        <button class="btn" onclick="showSelection(this)">
+          CHỌN SIZE
+        </button>
+      </div>
+    </article>
+
+    <article class="product">
+      <div class="product-image">
+        <img
+          src="https://static.nike.com/a/images/t_default/c2f058a3-fb69-4c42-84d5-63508e167f7a/SABRINA%2B2%2BEP.png"
+          alt="Nike Sabrina 2 màu cam"
+          loading="lazy"
+        >
+      </div>
+      <div class="product-info">
+        <div class="tag">02 / Guard series</div>
+        <h3>Nike Sabrina 2 EP</h3>
+        <p class="description">
+          Thiết kế thấp cổ dành cho lối chơi linh hoạt,
+          đổi hướng nhanh và kiểm soát sân.
+        </p>
+        <div class="price">Tham khảo: 3.000.000₫</div>
+        <div class="size-title">CHỌN SIZE EU</div>
+        <div class="sizes">
+          <button class="size" onclick="pickSize(this)">36</button>
+          <button class="size" onclick="pickSize(this)">37</button>
+          <button class="size" onclick="pickSize(this)">38</button>
+          <button class="size" onclick="pickSize(this)">39</button>
+          <button class="size" onclick="pickSize(this)">40</button>
+          <button class="size" onclick="pickSize(this)">41</button>
+          <button class="size" onclick="pickSize(this)">42</button>
+          <button class="size" onclick="pickSize(this)">43</button>
+        </div>
+        <button class="btn" onclick="showSelection(this)">
+          CHỌN SIZE
+        </button>
+      </div>
+    </article>
+
+    <article class="product">
+      <div class="product-image">
+        <img
+          src="https://media-www.sportchek.ca/product/div-05-footwear/dpt-80-footwear/sdpt-02-womens/334380876/nike-women-s-sabrina-2-basketball-shoes-763e417f-ee1d-49a7-b9b6-1b984c692081-jpgrendition.jpg"
+          alt="Nike Sabrina 2 xanh trắng"
+          loading="lazy"
+        >
+      </div>
+      <div class="product-info">
+        <div class="tag">03 / Minimal colorway</div>
+        <h3>Sabrina 2 — Ice Blue</h3>
+        <p class="description">
+          Tông xanh nhạt và trắng, phù hợp với
+          phong cách tối giản, hiện đại.
+        </p>
+        <div class="price">Tham khảo: 3.000.000₫</div>
+        <div class="size-title">CHỌN SIZE EU</div>
+        <div class="sizes">
+          <button class="size" onclick="pickSize(this)">36</button>
+          <button class="size" onclick="pickSize(this)">37</button>
+          <button class="size" onclick="pickSize(this)">38</button>
+          <button class="size" onclick="pickSize(this)">39</button>
+          <button class="size" onclick="pickSize(this)">40</button>
+          <button class="size" onclick="pickSize(this)">41</button>
+          <button class="size" onclick="pickSize(this)">42</button>
+          <button class="size" onclick="pickSize(this)">43</button>
+        </div>
+        <button class="btn" onclick="showSelection(this)">
+          CHỌN SIZE
+        </button>
+      </div>
+    </article>
+
+  </div>
+
+  <p class="notice">
+    * Giá Sabrina 2 trong website là giá tham khảo minh họa,
+    không phải báo giá hiện hành. Size hiển thị là lựa chọn
+    mẫu, không đảm bảo còn hàng. Giá và tồn kho thực tế có
+    thể thay đổi theo phiên bản và cửa hàng.
+  </p>
+  <p style="margin-top:12px">
+    <a class="btn" href="https://www.nike.com/vn/w/basketball-shoes-3glsmzy7ok" target="_blank" rel="noopener">
+      XEM GIÀY TRÊN NIKE VIỆT NAM ↗
+    </a>
+  </p>
+</section>
+
+<section class="manifesto" id="about">
+  <div class="eyebrow">03 / The philosophy</div>
+  <h2>LESS NOISE.<br>MORE GAME.</h2>
+  <p>
+    Minimalism không phải là thiếu đi chi tiết.
+    Đó là giữ lại những gì quan trọng nhất.
+    Một quả bóng, một mặt sân và tinh thần không ngừng tiến lên.
+  </p>
+</section>
+
+<footer>
+  <div><strong>COURT.</strong> — BASKETBALL ARCHIVE</div>
+  <div>DESIGNED WITH LESS, BUILT FOR THE GAME.</div>
+  <div>© 2026</div>
+</footer>
+
+<script>
+function pickSize(button) {
+  const group = button.closest(".sizes");
+
+  group.querySelectorAll(".size").forEach(size => {
+    size.classList.remove("selected");
+  });
+
+  button.classList.add("selected");
+}
+
+function showSelection(button) {
+  const product = button.closest(".product");
+  const selected = product.querySelector(".size.selected");
+  const name = product.querySelector("h3").textContent;
+
+  if (!selected) {
+    alert("Mày hãy chọn size trước nhé!");
+    return;
+  }
+
+  alert(
+    "Sản phẩm: " + name +
+    "\nSize đã chọn: EU " + selected.textContent +
+    "\nĐây là bản giới thiệu, chưa hỗ trợ đặt hàng."
+  );
+}
+</script>
+
+</body>
+</html>
